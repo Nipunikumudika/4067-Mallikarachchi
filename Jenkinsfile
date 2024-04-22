@@ -15,14 +15,15 @@ pipeline {
                 bat 'docker build -t nipunikumudika/rubik-cube:%BUILD_NUMBER% .'
             }
         }
+
         stage('Login to Docker Hub') {
-            steps {
-                withCredentials([string(credentialsId: 'Nipuni-DockerhubPassword', variable: 'Nipuni-DockerhubPassword')]) {
-   
-               bat'docker login -u nipunikumudika -p ${Nipuni-DockerhubPassword}'
-                }
-            }
+    steps {
+        withCredentials([string(credentialsId: 'Nipuni-DockerhubPassword2', variable: 'PW')]) {
+            bat "docker login -u nipunikumudika -p ${PW}"
         }
+    }
+}
+
         stage('Push Image') {
             steps {
                 bat 'docker push nipunikumudika/rubik-cube:%BUILD_NUMBER%'
